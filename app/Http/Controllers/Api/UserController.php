@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Requests\UserRequest;
 
 class UserController extends Controller
 {
@@ -18,8 +20,7 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    // @TODO: Create custom request and update error handling
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         $user = User::create($request->all());
 
@@ -29,7 +30,6 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    // @TODO: Update error handling
     public function show(User $user)
     {
         return response()->json($user);
@@ -38,8 +38,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    // @TODO: Create custom request and update error handling
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
         $user->update($request->all());
 
@@ -49,7 +48,6 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    // @TODO: Update error handling
     public function destroy(User $user)
     {
         $user->delete();

@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +36,13 @@ Route::group([
 ], function ($router) {
     Route::get('/', [UserController::class, 'index']);
     Route::post('/', [UserController::class, 'store']);
-    Route::get('/{user}', [UserController::class, 'show']);
-    Route::put('/{user}', [UserController::class, 'update']);
-    Route::delete('/{user}', [UserController::class, 'destroy']);
+    Route::get('/{user}', [UserController::class, 'show'])->missing(function () {
+        return response(['message' => 'User not found'], 404);
+    });
+    Route::put('/{user}', [UserController::class, 'update'])->missing(function () {
+        return response(['message' => 'User not found'], 404);
+    });
+    Route::delete('/{user}', [UserController::class, 'destroy'])->missing(function () {
+        return response(['message' => 'User not found'], 404);
+    });
 });
