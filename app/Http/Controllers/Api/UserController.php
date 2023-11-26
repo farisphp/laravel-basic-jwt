@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        return User::orderBy('created_at', 'desc')->paginate($request->size || 10);
+        return User::orderBy('created_at', 'desc')->paginate($request->size ? $request->size : 10);
     }
 
     /**
