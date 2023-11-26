@@ -12,9 +12,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return User::all();
+        return User::orderBy('created_at', 'desc')->paginate($request->size || 10);
     }
 
     /**
